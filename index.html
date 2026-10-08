@@ -17,6 +17,23 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="TEMPRO">
 <title>TEMPRO</title>
+<script>
+// ── Installation sur l'appareil ─────────────────────────────────────
+// Quand TEMPRO est ouverte DIRECTEMENT depuis sa propre adresse, on
+// utilise le manifeste et le fichier sw.js du dossier : c'est ce duo qui
+// fait proposer l'installation en un clic par le navigateur. Ouverte
+// depuis une autre page, ou depuis un simple fichier, la page garde son
+// manifeste intégré : aucun fichier à télécharger, rien à régler.
+(function () {
+  var direct = true;
+  try { direct = (window.top === window.self); } catch (e) { direct = false; }
+  if (!direct || !/^https?:$/.test(window.location.protocol)) return;
+  var m = document.querySelector('link[rel="manifest"]');
+  if (m) m.setAttribute('href', 'manifest.webmanifest');
+  var t = document.querySelector('link[rel="apple-touch-icon"]');
+  if (t) t.setAttribute('href', 'apple-touch-icon.png');
+})();
+</script>
 <style id="app-css">
 /* ══════════════════════════════════════════════════════
    VARIABLES & RESET
@@ -214,6 +231,28 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
 .modal-input-wrap input{width:100%;border:1px solid #ccc;border-radius:8px;padding:10px 12px;font-size:15px;font-weight:600;min-height:var(--touch-min);background:#fff;}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
 .modal-actions .btn{flex:1;min-width:100px;}
+
+/* ══════════════════════════════════════════════════════
+   INSTALLATION SUR L'APPAREIL
+══════════════════════════════════════════════════════ */
+/* au-dessus de l'écran de connexion : la modale doit rester lisible même
+   ouverte depuis le bouton situé sous « Se connecter » */
+#modal-install{z-index:9500;}
+.install-link{display:block;width:100%;margin:16px auto 0;background:none;border:none;color:#2E9DB5;
+  font-size:12.5px;font-weight:700;cursor:pointer;padding:8px 10px;min-height:40px;text-decoration:underline;
+  font-family:inherit;}
+.install-link:active{opacity:.65;}
+.btn-install-now{width:100%;padding:15px;background:linear-gradient(135deg,#0F5E6B 0%,#2E9DB5 100%);color:#fff;
+  border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;min-height:52px;margin-bottom:10px;
+  display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(15,94,107,.35);font-family:inherit;}
+.btn-install-now:active{transform:scale(.98);}
+.install-ok{display:flex;align-items:center;gap:10px;background:#E8F5E9;border:1px solid #C8E6C9;
+  border-radius:12px;padding:14px;font-size:13px;font-weight:600;color:#2E7D32;margin-bottom:16px;}
+.install-note{font-size:12px;color:#777;line-height:1.55;background:#F5F9FA;border-radius:10px;padding:10px 12px;margin-bottom:16px;}
+.install-steps{margin:0 0 14px;padding:0;list-style:none;counter-reset:ei;}
+.install-steps li{counter-increment:ei;position:relative;padding:0 0 12px 34px;font-size:13px;color:#444;line-height:1.55;}
+.install-steps li::before{content:counter(ei);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;
+  background:var(--teal-mid);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
 .print-title{font-size:13px;font-weight:700;color:var(--teal-dark);padding:5px 0;border-bottom:2px solid var(--teal-dark);margin-bottom:8px;}
 .page-section{padding:0;}
 .page-break{page-break-after:always;}
@@ -307,6 +346,7 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
         <span class="btn-login-text">🔓 Se connecter</span>
       </button>
       <div id="login-hint"></div>
+      <button class="install-link" id="login-install" onclick="ouvrirInstall()">📲 Installer l'application sur cet appareil</button>
     </div>
     <div class="login-footer">Propulsé par <strong>TEMPRO</strong> v1.0 &nbsp;•&nbsp; 2026</div>
   </div>
@@ -358,6 +398,10 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
       <div class="sidebar-item" onclick="closeSidebar(); showCloture();">
         <span class="si-icon">📦</span> Clôturer le mois
       </div>
+      <div class="sidebar-section-title">Application</div>
+      <div class="sidebar-item" onclick="closeSidebar(); ouvrirInstall();">
+        <span class="si-icon">📲</span> Installer l'application
+      </div>
       <div class="sidebar-section-title">Session</div>
       <div class="sidebar-item" onclick="logout(); closeSidebar();" style="color:#c62828;font-weight:700;">
         <span class="si-icon">🚪</span> Déconnexion
@@ -376,6 +420,17 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
 </div>
 
 <div id="toast"></div>
+
+<!-- Modale d'installation sur l'appareil -->
+<div id="modal-install" class="modal-overlay" onclick="if(event.target===this)fermerInstall()">
+  <div class="modal-box">
+    <h2 style="color:var(--teal-dark)">📲 Installer TEMPRO</h2>
+    <div id="install-body"></div>
+    <div class="modal-actions">
+      <button class="btn" style="background:#eee;color:#333" onclick="fermerInstall()">Fermer</button>
+    </div>
+  </div>
+</div>
 
 <!-- Modale clôture -->
 <div id="modal-cloture" class="modal-overlay"><div class="modal-box">
@@ -617,6 +672,8 @@ function logout() {
 }
 
 window.addEventListener('load', function () {
+  initInstall();
+  initHorsLigne();
   const params = new URLSearchParams(window.location.search);
   const nom = (params.get('nom') || '').trim();
   const url = (params.get('webappUrl') || DIRECT_API_URL || '').trim();
@@ -1575,6 +1632,135 @@ async function genererPdfCloture(label) {
     toast('⚠️ Popup bloqué : le PDF a été téléchargé en HTML', true);
   }
   await new Promise(function (r) { setTimeout(r, 900); });
+}
+
+// ════════════════════════════════════════════════════════════════════
+//  INSTALLATION SUR L'APPAREIL
+// ════════════════════════════════════════════════════════════════════
+// Sur Android, Windows, Mac et Linux, le navigateur peut proposer
+// l'installation en un seul clic. Sur iPhone et iPad, elle se fait depuis
+// le menu Partager. Le mode d'emploi s'adapte tout seul à l'appareil.
+let _inviteInstall = null;   // installation proposée par le navigateur
+
+function appareilInstall() {
+  const ua = navigator.userAgent || '';
+  if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) return 'ios';
+  if (/Android/i.test(ua)) return 'android';
+  return 'ordinateur';
+}
+
+function appInstallee() {
+  try {
+    if (window.matchMedia('(display-mode: standalone)').matches) return true;
+    if (window.matchMedia('(display-mode: fullscreen)').matches) return true;
+    if (navigator.standalone === true) return true;            // iPhone / iPad
+    if ((document.referrer || '').indexOf('android-app://') === 0) return true;
+  } catch (e) {}
+  return false;
+}
+
+// Aucun appel réseau ici : on ne fait qu'afficher ou masquer le bouton.
+function majInstall() {
+  const lien = document.getElementById('login-install');
+  if (lien) lien.style.display = appInstallee() ? 'none' : 'block';
+  const modal = document.getElementById('modal-install');
+  const body = document.getElementById('install-body');
+  if (body && modal && modal.style.display === 'flex') body.innerHTML = contenuInstall();
+}
+
+function contenuInstall() {
+  if (appInstallee()) {
+    return '<div class="install-ok"><span style="font-size:22px">✅</span>'
+      + '<span>TEMPRO est déjà installée sur cet appareil.</span></div>';
+  }
+  let html = '';
+  if (_inviteInstall) {
+    html += '<button class="btn-install-now" onclick="lancerInstall()">📲 Installer maintenant</button>'
+      + '<div class="install-note">L\'application s\'ajoute à votre écran d\'accueil et s\'ouvre ensuite '
+      + 'en plein écran, comme une application classique.</div>';
+  }
+  const appareil = appareilInstall();
+  if (appareil === 'ios') {
+    html += '<ul class="install-steps">'
+      + '<li>Ouvrez cette page avec <strong>Safari</strong>.</li>'
+      + '<li>Appuyez sur le bouton <strong>Partager</strong> ⬆️ en bas de l\'écran.</li>'
+      + '<li>Faites défiler le menu, puis appuyez sur <strong>Sur l\'écran d\'accueil</strong>.</li>'
+      + '<li>Appuyez sur <strong>Ajouter</strong> en haut à droite.</li>'
+      + '</ul>'
+      + '<div class="install-note">L\'icône TEMPRO apparaît alors sur votre écran d\'accueil : '
+      + 'elle s\'ouvre en plein écran, comme une application classique.</div>';
+  } else if (appareil === 'android') {
+    html += '<ul class="install-steps">'
+      + '<li>Appuyez sur le menu <strong>⋮</strong> en haut à droite du navigateur.</li>'
+      + '<li>Choisissez <strong>Installer l\'application</strong> (ou <strong>Ajouter à l\'écran d\'accueil</strong>).</li>'
+      + '<li>Confirmez avec <strong>Installer</strong>.</li>'
+      + '</ul>'
+      + '<div class="install-note">L\'icône TEMPRO apparaît alors sur votre écran d\'accueil : '
+      + 'elle s\'ouvre en plein écran, comme une application classique.</div>';
+  } else {
+    html += '<ul class="install-steps">'
+      + '<li>Cliquez sur l\'icône d\'installation <strong>⊞</strong> à droite de la barre d\'adresse.</li>'
+      + '<li>Ou ouvrez le menu <strong>⋮</strong> puis <strong>Installer TEMPRO</strong>.</li>'
+      + '<li>Confirmez avec <strong>Installer</strong>.</li>'
+      + '</ul>'
+      + '<div class="install-note">Un raccourci TEMPRO apparaît alors sur le bureau : il ouvre '
+      + 'l\'application dans sa propre fenêtre, comme une application classique.</div>';
+  }
+  return html;
+}
+
+function ouvrirInstall() {
+  document.getElementById('install-body').innerHTML = contenuInstall();
+  document.getElementById('modal-install').style.display = 'flex';
+}
+function fermerInstall() {
+  document.getElementById('modal-install').style.display = 'none';
+}
+
+async function lancerInstall() {
+  if (!_inviteInstall) { toast('⚠️ Suivez les étapes ci-dessous', true); return; }
+  const invite = _inviteInstall;
+  _inviteInstall = null;
+  try {
+    invite.prompt();
+    const choix = await invite.userChoice;
+    if (choix && choix.outcome === 'accepted') { toast('✅ Installation en cours…'); fermerInstall(); }
+    else toast('Installation annulée');
+  } catch (e) {
+    toast('⚠️ Suivez les étapes ci-dessous', true);
+  }
+  majInstall();
+}
+
+function initInstall() {
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    _inviteInstall = e;
+    majInstall();
+  });
+  window.addEventListener('appinstalled', function () {
+    _inviteInstall = null;
+    fermerInstall();
+    majInstall();
+    toast('✅ TEMPRO installée');
+  });
+  try {
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', majInstall);
+  } catch (e) {}
+  majInstall();
+}
+
+// ── Ouverture hors ligne ────────────────────────────────────────────
+// Uniquement quand la page est ouverte directement depuis sa propre
+// adresse : c'est cette situation qui permet l'installation. Dans les
+// autres cas on ne tente rien, pour ne jamais gêner l'application.
+function initHorsLigne() {
+  let direct = true;
+  try { direct = (window.top === window.self); } catch (e) { direct = false; }
+  if (!direct) return;
+  if (!/^https?:$/.test(window.location.protocol)) return;
+  if (!('serviceWorker' in navigator)) return;
+  try { navigator.serviceWorker.register('sw.js').catch(function () {}); } catch (e) {}
 }
 
 // ════════════════════════════════════════════════════════════════════
