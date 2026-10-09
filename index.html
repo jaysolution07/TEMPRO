@@ -152,8 +152,8 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
 .tabs::-webkit-scrollbar{display:none;}
 .tab{padding:11px 13px;color:rgba(255,255,255,.75);cursor:pointer;font-size:12px;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:5px;min-height:var(--touch-min);}
 .tab.active{color:#fff;border-bottom-color:#fff;background:rgba(255,255,255,.12);}
-.tab .badge{background:rgba(255,255,255,.25);border-radius:10px;padding:1px 6px;font-size:10px;}
-.tab-div{width:1px;background:rgba(255,255,255,.25);margin:8px 3px;flex-shrink:0;}
+.tab .badge{background:rgba(255,255,255,.25);border-radius:10px;padding:1px 6px;font-size:10px;}  .tab-div{width:1px;background:rgba(255,255,255,.25);margin:8px 3px;flex-shrink:0;}
+  .tab[data-tab=dashboard]{font-weight:700;}
 .content{flex:1;overflow-y:auto;overflow-x:hidden;padding:12px;-webkit-overflow-scrolling:touch;}
 .meta-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;background:#fff;padding:10px 13px;border-radius:var(--radius);box-shadow:var(--shadow);}
 .meta-row label{font-size:11px;font-weight:700;color:var(--teal-dark);}
@@ -196,6 +196,47 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
 .cloture-zone{margin-top:14px;padding:16px;background:var(--purple-light);border-radius:12px;border-left:4px solid var(--purple);}
 .cloture-zone .cz-title{font-size:13px;font-weight:700;color:var(--purple);margin-bottom:6px;}
 .cloture-zone .cz-sub{font-size:12px;color:#555;margin-bottom:12px;}
+
+/* ══════════════════════════════════════════════════════
+   TABLEAU DE BORD
+══════════════════════════════════════════════════════ */
+.db-filters{background:#fff;border-radius:var(--radius);padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;}
+.db-filters .db-field{display:flex;flex-direction:column;gap:4px;flex:1;min-width:130px;}
+.db-filters label{font-size:10.5px;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.4px;}
+.db-filters select{border:1px solid #ccc;border-radius:8px;padding:9px 10px;font-size:14px;background:#fff;min-height:var(--touch-min);font-family:inherit;font-weight:600;}
+.db-filters select:focus{outline:none;border-color:var(--teal-mid);box-shadow:0 0 0 2px rgba(46,157,181,.2);}
+.db-selectwrap{display:flex;flex-direction:column;gap:6px;background:#fff;border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow);margin-bottom:12px;}
+.db-selectwrap label{font-size:10.5px;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.4px;}
+.db-selectwrap select{width:100%;border:1px solid #ccc;border-radius:8px;padding:6px 4px;font-size:13px;font-family:inherit;font-weight:600;background:#fff;min-height:104px;}
+.db-selectwrap select:focus{outline:none;border-color:var(--teal-mid);box-shadow:0 0 0 2px rgba(46,157,181,.2);}
+.db-selectwrap option{padding:7px 8px;border-radius:6px;}
+.db-selectwrap option:checked{background:var(--teal-light) linear-gradient(0deg,var(--teal-light),var(--teal-light));color:var(--teal-dark);}
+.db-hint{font-size:11px;color:#90a4ae;line-height:1.45;}
+.db-compteur{font-size:12px;font-weight:700;color:var(--teal-dark);margin-right:auto;align-self:center;}
+.db-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;margin-bottom:12px;}
+.db-kpi{background:#fff;border-radius:var(--radius);padding:10px 12px;box-shadow:var(--shadow);border-left:4px solid var(--teal-mid);}
+.db-kpi .v{font-size:19px;font-weight:700;color:var(--teal-dark);line-height:1.15;}
+.db-kpi .l{font-size:10px;color:#78909c;font-weight:700;text-transform:uppercase;letter-spacing:.3px;margin-top:3px;line-height:1.3;}
+.db-kpi.warn{border-left-color:var(--orange);}
+.db-kpi.warn .v{color:var(--orange);}
+.db-kpi.bad{border-left-color:var(--red);}
+.db-kpi.bad .v{color:#c62828;}
+.db-card{background:#fff;border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow);margin-bottom:12px;}
+.db-card h3{font-size:13px;font-weight:700;color:var(--teal-dark);margin-bottom:10px;}
+.db-svg{width:100%;height:auto;display:block;}
+.db-legende{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:#455a64;margin-top:8px;}
+.db-legende span{display:inline-flex;align-items:center;gap:6px;font-weight:600;}
+.db-legende i{width:16px;height:4px;border-radius:2px;}
+.db-tablescroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.db-table{width:100%;border-collapse:collapse;font-size:12px;min-width:420px;}
+.db-table th,.db-table td{border-bottom:1px solid #eceff1;padding:7px 6px;text-align:left;white-space:nowrap;}
+.db-table th{font-size:10px;color:#78909c;text-transform:uppercase;letter-spacing:.3px;}
+.db-table td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.db-table tr.alerte td{color:#c62828;font-weight:700;}
+.db-note{font-size:11.5px;color:#78909c;line-height:1.55;margin-top:10px;}
+.db-actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.db-actions .btn{flex:1;min-width:150px;}
+.db-err{background:#FFEBEE;color:#C62828;border-radius:10px;padding:12px 14px;font-size:12.5px;font-weight:600;line-height:1.5;}
 .alert-banner{border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;}
 .alert-banner.info{background:var(--orange-light);color:var(--orange);border-left:4px solid var(--orange);}
 .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;opacity:0;transition:opacity .25s;}
@@ -267,7 +308,8 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
   html,body{height:auto!important;overflow:visible!important;display:block!important;background:#fff!important;}
   #login-screen,#boot-screen{display:none!important;}
   .topbar,.tabs,.tab-div,#toast,.progress-zone,.app-card-actions,.add-form,.inactive-title,
-  .comment-box .btn,button,.btn,.meta-row button,.cloture-zone,.alert-banner{display:none!important;}
+  .comment-box .btn,button,.btn,.meta-row button,.cloture-zone,.alert-banner,
+  .db-actions,.db-selectwrap,.db-filters,.db-err{display:none!important;}
   .content{display:block!important;position:absolute!important;top:0!important;left:0!important;width:100%!important;height:auto!important;overflow:visible!important;padding:4mm!important;}
   .table-scroll{overflow:visible!important;box-shadow:none!important;}
   .temp-table{width:100%!important;box-shadow:none!important;overflow:visible!important;font-size:8px!important;border:1px solid #999!important;}
@@ -394,6 +436,10 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
         <span class="si-badge" id="badge-app-sidebar">0</span>
       </div>
       <div id="sidebar-appareils"></div>
+      <div class="sidebar-section-title">Suivi</div>
+      <div class="sidebar-item" data-tab="dashboard" onclick="sidebarNav('dashboard',this)">
+        <span class="si-icon">📊</span> Tableau de bord
+      </div>
       <div class="sidebar-section-title">Clôture</div>
       <div class="sidebar-item" onclick="closeSidebar(); showCloture();">
         <span class="si-icon">📦</span> Clôturer le mois
@@ -411,6 +457,7 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
 
   <div class="tabs" id="tabs-bar">
     <div class="tab active" data-tab="manager" onclick="switchTab('manager',this)">⚙️ Appareils <span class="badge" id="badge-app">0</span></div>
+    <div class="tab" data-tab="dashboard" onclick="switchTab('dashboard',this)">📊 Tableau de bord</div>
     <div class="tab-div"></div>
   </div>
 
@@ -435,9 +482,11 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
 <!-- Modale clôture -->
 <div id="modal-cloture" class="modal-overlay"><div class="modal-box">
   <h2>📦 Clôturer le mois</h2>
-  <p>✅ Ouvre la fenêtre d'impression pour sauvegarder en <strong>PDF</strong><br>
+  <p>✅ Archive le mois dans le <strong>tableau de bord</strong> (courbes et indicateurs)<br>
+     ✅ Ouvre la fenêtre d'impression pour sauvegarder en <strong>PDF</strong><br>
      ✅ Remet toutes les cases à zéro pour le mois suivant<br>
-     ⚠️ Les appareils créés restent en place — action irréversible sur les cases cochées</p>
+     ⚠️ Les appareils créés restent en place — les données du mois restent consultables dans le tableau de bord</p>
+  <div class="modal-input-wrap"><label>Mois clôturé :</label><input id="cloture-mois" type="month" onchange="syncLabelCloture()"></div>
   <div class="modal-input-wrap"><label>Nom du fichier PDF :</label><input id="cloture-label" type="text" placeholder="ex: 2026-03 – Mars"></div>
   <div id="cloture-result" style="display:none;font-size:12px;padding:10px;border-radius:8px;margin-bottom:14px"></div>
   <div class="modal-actions">
@@ -473,7 +522,12 @@ const S = {
   states: {},        // nom de feuille -> { cle: valeur }
   appareils: [],
   renaming: {},
-  loaded: new Set()
+  loaded: new Set(),
+  archive: null,     // index des mois clôturés (vient du service)
+  archiveMois: {},   // mois -> détail archivé (cases cochées, visa, commentaire)
+  archiveErr: '',    // message si l'historique n'a pas pu être lu
+  dbErr: '',         // message si le mois sélectionné n'a pas pu être lu
+  db: { annee: '', mois: '', sel: {} }   // sélection du tableau de bord
 };
 
 let API_URL = '';
@@ -662,6 +716,10 @@ function logout() {
   document.getElementById('login-screen').style.display = 'flex';
   S.tab = 'manager'; S.appChecks = {}; S.comments = {}; S.meta = {}; S.states = {};
   S.appareils = []; S.renaming = {}; S.loaded = new Set();
+  S.archive = null; S.archiveMois = {}; S.archiveErr = ''; S.dbErr = '';
+  S.db = { annee: '', mois: '', sel: {} };
+  ARCHIVE_REQ = null;
+  Object.keys(MOIS_REQ).forEach(function (k) { delete MOIS_REQ[k]; });
   Object.keys(saveQueues).forEach(function (k) { delete saveQueues[k]; });
   const btn = document.getElementById('btn-login');
   btn.disabled = false; btn.classList.remove('loading');
@@ -1133,6 +1191,12 @@ function switchTab(tab, el) {
 function renderTab(tab) {
   const c = document.getElementById('main-content');
   if (tab === 'manager') { c.innerHTML = buildManager(); return; }
+  if (tab === 'dashboard') {
+    c.innerHTML = buildDashboard();
+    chargerArchive();     // ne fait rien si l'index est déjà en mémoire
+    chargerMoisDb();      // ne fait rien si le mois est le mois en cours
+    return;
+  }
   if (tab.indexOf('app_') === 0) {
     const app = S.appareils.find(function (a) { return a.id === tab.replace('app_', ''); });
     c.innerHTML = app ? buildPos(app) : '<p style="padding:20px">Appareil introuvable</p>';
@@ -1192,18 +1256,58 @@ function tempClass(t) {
 }
 function tempIcon(t) { return t >= 6 ? '✗ ' : (t <= 4 ? '✓ ' : ''); }
 
+// ── La grille, une seule fois pour toutes ───────────────────────────
+// Le tableau de bord et la réimpression d'un mois clôturé doivent afficher
+// EXACTEMENT la même grille que celle imprimée le jour de la clôture :
+// c'est donc le même constructeur qui sert à l'écran et au PDF.
+//   cases : { '4__12': true, … }     attrs : attributs à ajouter aux cases (écran)
+function grilleHtml_(cases, attrs) {
+  cases = cases || {};
+  let html = '<table class="temp-table"><thead>' +
+    '<tr style="background:#0F5E6B;color:#fff"><th class="t-label" style="background:#0a4650">T°</th>';
+  for (let d = 1; d <= 31; d++) html += '<th style="min-width:28px">' + d + '</th>';
+  html += '</tr></thead><tbody>';
+  TEMPS_POS.forEach(function (t) {
+    const cls = tempClass(t);
+    html += '<tr><td class="t-label ' + cls + '">' + tempIcon(t) + t + '°C</td>';
+    for (let d = 1; d <= 31; d++) {
+      const suite = attrs ? attrs(t, d) : '';
+      html += '<td class="' + cls + '"><div class="cb-wrap"><input type="checkbox"' +
+        (cases[t + '__' + d] ? ' checked' : '') + suite + '></div></td>';
+    }
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  return html;
+}
+
+// ── Avancement du mois ──────────────────────────────────────────────
+// On coche UNE case par jour (la température relevée), pas les 341 cases du
+// tableau : l'avancement se compte donc en JOURS relevés. Un jour compte dès
+// qu'une case de sa colonne est cochée ; le mois est à 100 % quand chaque
+// jour du mois a son relevé.
+function progressionApp(cases, mois) {
+  cases = cases || {};
+  const jours = joursDansMois(mois);
+  let faits = 0;
+  for (let d = 1; d <= jours; d++) {
+    for (let i = 0; i < TEMPS_POS.length; i++) {
+      if (cases[TEMPS_POS[i] + '__' + d]) { faits++; break; }
+    }
+  }
+  return { jours: jours, faits: faits, pct: jours > 0 ? Math.min(100, Math.round(faits / jours * 100)) : 0 };
+}
+function libelleProgression(prog) {
+  return prog.faits + ' / ' + prog.jours + ' jours relevés (' + prog.pct + '%)';
+}
+
 function buildPos(app) {
   const key = app.id;
   hydrateApp(key, S.states[SHEET_PREFIX + key]);
   const meta = S.meta[key] || {};
-  const days = [];
-  for (let d = 1; d <= 31; d++) days.push(d);
-  let total = 0, checked = 0;
-  TEMPS_POS.forEach(function (t) {
-    days.forEach(function (d) { total++; if (S.appChecks[key][t + '__' + d]) checked++; });
-  });
-  const pct = total > 0 ? Math.round(checked / total * 100) : 0;
   const monthVal = meta.moisAnnee || new Date().toISOString().slice(0, 7);
+  const prog = progressionApp(S.appChecks[key], monthVal);
+  const pct = prog.pct;
 
   let html = '<div class="meta-row"><span style="font-size:14px;font-weight:700;color:var(--teal-dark)">🧊 ' + esc(app.nom) + '</span>' +
     '<label>Mois/Année :</label><input type="month" id="meta-m-' + key + '" value="' + monthVal + '">' +
@@ -1211,23 +1315,11 @@ function buildPos(app) {
     '<button class="btn btn-primary btn-sm" onclick="saveAppMeta(\'' + key + '\')">💾 Enregistrer</button></div>';
   html += '<div class="alert-banner info">🌡️ Cible ≤ 4 °C &nbsp;|&nbsp; ✗ alerte ≥ 6 °C</div>';
   html += '<div class="progress-zone"><div class="progress-bar"><div class="progress-fill" id="pb-' + key + '" style="width:' + pct + '%;background:#0F5E6B"></div></div>' +
-    '<div class="progress-label" id="pl-' + key + '">' + checked + ' / ' + total + ' cases (' + pct + '%)</div></div>';
+    '<div class="progress-label" id="pl-' + key + '">' + libelleProgression(prog) + '</div></div>';
 
-  html += '<div class="table-scroll"><table class="temp-table"><thead>' +
-    '<tr style="background:#0F5E6B;color:#fff"><th class="t-label" style="background:#0a4650">T°</th>' +
-    days.map(function (d) { return '<th style="min-width:28px">' + d + '</th>'; }).join('') + '</tr></thead><tbody>';
-
-  TEMPS_POS.forEach(function (t) {
-    const cls = tempClass(t);
-    html += '<tr><td class="t-label ' + cls + '">' + tempIcon(t) + t + '°C</td>';
-    days.forEach(function (d) {
-      const ck = S.appChecks[key][t + '__' + d] ? 'checked' : '';
-      html += '<td class="' + cls + '"><div class="cb-wrap"><input type="checkbox" ' + ck +
-        ' data-ck="' + key + '|' + t + '|' + d + '" onchange="tickApp(\'' + key + '\',' + t + ',' + d + ',this.checked)"></div></td>';
-    });
-    html += '</tr>';
-  });
-  html += '</tbody></table></div>';
+  html += '<div class="table-scroll">' + grilleHtml_(S.appChecks[key], function (t, d) {
+    return ' data-ck="' + key + '|' + t + '|' + d + '" onchange="tickApp(\'' + key + '\',' + t + ',' + d + ',this.checked)"';
+  }) + '</div>';
 
   html += '<div class="comment-box"><h3>📝 Anomalies & Commentaires</h3>' +
     '<textarea id="cmt-app-' + key + '" placeholder="Date + description...">' + esc(S.comments[key] || '') + '</textarea>' +
@@ -1252,17 +1344,11 @@ function highlightToday() {
 }
 
 function updateProgress(appId) {
-  const days = [];
-  for (let d = 1; d <= 31; d++) days.push(d);
-  let total = 0, checked = 0;
-  TEMPS_POS.forEach(function (t) {
-    days.forEach(function (d) { total++; if (S.appChecks[appId][t + '__' + d]) checked++; });
-  });
-  const pct = total > 0 ? Math.round(checked / total * 100) : 0;
+  const prog = progressionApp(S.appChecks[appId], (S.meta[appId] || {}).moisAnnee);
   const pb = document.getElementById('pb-' + appId);
   const pl = document.getElementById('pl-' + appId);
-  if (pb) pb.style.width = pct + '%';
-  if (pl) pl.textContent = checked + ' / ' + total + ' cases (' + pct + '%)';
+  if (pb) pb.style.width = prog.pct + '%';
+  if (pl) pl.textContent = libelleProgression(prog);
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -1520,6 +1606,7 @@ async function saveAppMeta(appId) {
   if (!S.states[SHEET_PREFIX + appId]) S.states[SHEET_PREFIX + appId] = {};
   S.states[SHEET_PREFIX + appId]._month = m;
   S.states[SHEET_PREFIX + appId]._visa = v;
+  updateProgress(appId);   // le nombre de jours du mois change le dénominateur
   saveCacheSoon();
   setSync('pending');
   try {
@@ -1545,23 +1632,72 @@ async function saveAppComment(appId) {
 }
 
 // ════════════════════════════════════════════════════════════════════
-//  CLÔTURE DU MOIS (PDF + remise à zéro)
+//  MOIS : petites conversions partagées par la clôture et le tableau de bord
 // ════════════════════════════════════════════════════════════════════
+function moisActuel() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+}
+function moisLisible(mois) {
+  const m = /^(\d{4})-(\d{2})$/.exec(String(mois || ''));
+  if (!m) return String(mois || '');
+  return (MOIS_FR[parseInt(m[2], 10) - 1] || '') + ' ' + m[1];
+}
+// « 2026-03 – Mars » : le libellé du PDF et de la clôture.
+function labelMois(mois) {
+  const m = /^(\d{4})-(\d{2})$/.exec(String(mois || ''));
+  if (!m) return String(mois || '');
+  return m[1] + '-' + m[2] + ' – ' + (MOIS_FR[parseInt(m[2], 10) - 1] || '');
+}
+function joursDansMois(mois) {
+  const m = /^(\d{4})-(\d{2})$/.exec(String(mois || ''));
+  if (!m) return 31;
+  return new Date(parseInt(m[1], 10), parseInt(m[2], 10), 0).getDate();
+}
+
+// ════════════════════════════════════════════════════════════════════
+//  CLÔTURE DU MOIS (archivage + PDF + remise à zéro)
+// ════════════════════════════════════════════════════════════════════
+// Mois réellement rempli dans les chambres froides (champ « Mois/Année »).
+// Sert de valeur par défaut à la clôture : fin de mois ou début du suivant,
+// on clôture le mois des données, pas le mois du calendrier.
+function moisDonnees() {
+  const compte = {};
+  Object.keys(S.meta || {}).forEach(function (id) {
+    const m = String((S.meta[id] || {}).moisAnnee || '');
+    if (!/^\d{4}-\d{2}$/.test(m)) return;
+    compte[m] = (compte[m] || 0) + 1;
+  });
+  let best = '';
+  Object.keys(compte).forEach(function (m) { if (!best || compte[m] > compte[best]) best = m; });
+  return best;
+}
+
 function showCloture() {
-  const now = new Date();
-  const label = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + ' – ' + MOIS_FR[now.getMonth()];
-  document.getElementById('cloture-label').value = label;
+  const mois = moisDonnees() || moisActuel();
+  const champMois = document.getElementById('cloture-mois');
+  if (champMois) champMois.value = mois;
+  document.getElementById('cloture-label').value = labelMois(mois);
   document.getElementById('cloture-result').style.display = 'none';
   document.getElementById('btn-cloturer').disabled = false;
   document.getElementById('btn-cloturer').textContent = '📤 Exporter';
   document.getElementById('modal-cloture').style.display = 'flex';
 }
 function closeCloture() { document.getElementById('modal-cloture').style.display = 'none'; }
+function syncLabelCloture() {
+  const champMois = document.getElementById('cloture-mois');
+  const mois = (champMois && champMois.value) || moisActuel();
+  const champ = document.getElementById('cloture-label');
+  if (champ) champ.value = labelMois(mois);
+}
 
 async function confirmerCloture() {
-  const label = document.getElementById('cloture-label').value.trim();
+  const champMois = document.getElementById('cloture-mois');
+  const mois = (champMois && champMois.value) || moisActuel();
+  const label = (document.getElementById('cloture-label').value || '').trim() || labelMois(mois);
   if (!label) { toast('⚠️ Entrez un nom', true); return; }
-  if (!confirm('Confirmer la clôture "' + label + '" ?\nL\'export PDF va s\'ouvrir puis toutes les cases seront remises à zéro.')) return;
+  if (!confirm('Confirmer la clôture "' + label + '" ?\n\nLe mois est archivé pour le tableau de bord, '
+    + 'l\'export PDF va s\'ouvrir, puis toutes les cases seront remises à zéro.')) return;
 
   const btn = document.getElementById('btn-cloturer');
   const res = document.getElementById('cloture-result');
@@ -1570,12 +1706,16 @@ async function confirmerCloture() {
 
   try {
     await genererPdfCloture(label);
-    const r = await api('cloturerMois', { moisLabel: label }, { attempts: 2 });
+    const r = await api('cloturerMois', { mois: mois, moisLabel: label }, { attempts: 2 });
     res.style.display = 'block';
     if (r && r.ok) {
       res.style.background = '#E8F5E9'; res.style.color = '#2E7D32';
-      res.innerHTML = '<strong>✅ Clôture réussie !</strong><br>📄 Sauvegardez le PDF depuis la fenêtre d\'impression.';
+      res.innerHTML = '<strong>✅ Clôture réussie !</strong><br>📄 Sauvegardez le PDF depuis la fenêtre d\'impression.'
+        + '<br>📊 Le mois « ' + esc(r.label || label) + ' » est conservé dans le tableau de bord.';
       btn.textContent = '✓ Terminé';
+      // L'historique vient de changer : on le relira au prochain affichage.
+      S.archive = null; S.archiveMois = {}; S.archiveErr = ''; S.dbErr = '';
+      S.db.mois = ''; S.db.sel = {};
       // Remise à zéro locale immédiate
       S.appareils.forEach(function (app) { S.appChecks[app.id] = {}; S.comments[app.id] = ''; });
       S.states = {};
@@ -1597,16 +1737,59 @@ async function confirmerCloture() {
   }
 }
 
-// Construit le document PDF (impression) avec TOUTES les chambres froides actives.
-async function genererPdfCloture(label) {
-  const css = document.getElementById('app-css').innerHTML;
-  let body = '';
-  const actifs = S.appareils.filter(function (a) { return a.actif; });
-  if (!actifs.length) throw new Error('Aucune chambre froide active à exporter.');
-  actifs.forEach(function (app) {
-    body += '<div class="page-section"><div class="print-title">🧊 ' + esc(app.nom) + ' — ' + esc(label) + '</div>' +
-      buildPos(app) + '</div><div class="page-break"></div>';
+// ════════════════════════════════════════════════════════════════════
+//  PDF PARTAGÉ (clôture du jour / réimpression d'un mois archivé)
+// ════════════════════════════════════════════════════════════════════
+// Une seule fabrique de grille (grilleHtml_) alimente les deux : ce que l'on
+// retélécharge six mois plus tard est donc identique à ce qui a été imprimé.
+function grillePdfHtml_(sec) {
+  let html = '<div class="meta-row"><span style="font-size:14px;font-weight:700;color:var(--teal-dark)">🧊 ' + esc(sec.nom) + '</span>' +
+    '<label>Mois/Année :</label><input type="month" value="' + esc(sec.mois || '') + '">' +
+    '<label>Visa :</label><input type="text" style="width:90px" placeholder="Initiales" value="' + esc(sec.visa || '') + '"></div>';
+  html += '<div class="alert-banner info">🌡️ Cible ≤ 4 °C &nbsp;|&nbsp; ✗ alerte ≥ 6 °C</div>';
+  html += '<div class="table-scroll">' + grilleHtml_(sec.cases, null) + '</div>';
+  html += '<div class="comment-box"><h3>📝 Anomalies & Commentaires</h3><textarea>' + esc(sec.comment || '') + '</textarea></div>';
+  return html;
+}
+
+// Chambres froides actives, telles qu'elles sont à l'écran maintenant.
+function sectionsLivePdf_() {
+  return S.appareils.filter(function (a) { return a.actif; }).map(function (app) {
+    const meta = S.meta[app.id] || {};
+    return {
+      nom: app.nom,
+      mois: meta.moisAnnee || moisActuel(),
+      visa: meta.visa || '',
+      comment: S.comments[app.id] || '',
+      cases: S.appChecks[app.id] || {}
+    };
   });
+}
+
+// Chambres froides d'un mois archivé, telles qu'elles étaient à la clôture.
+function sectionsArchivePdf_(mois) {
+  return (S.archiveMois[mois] || []).map(function (e) {
+    return {
+      nom: e.appareilNom,
+      mois: e.moisAppareil || e.mois || mois,
+      visa: e.visa || '',
+      comment: e.commentaire || '',
+      cases: e.cases || {}
+    };
+  });
+}
+
+function corpsPdf_(label, sections) {
+  return sections.map(function (sec) {
+    return '<div class="page-section"><div class="print-title">🧊 ' + esc(sec.nom) + ' — ' + esc(label) + '</div>' +
+      grillePdfHtml_(sec) + '</div><div class="page-break"></div>';
+  }).join('');
+}
+
+// Ouvre la fenêtre d'impression (le navigateur y propose « Enregistrer en PDF »).
+async function ouvrirPdf_(label, sections) {
+  const css = document.getElementById('app-css').innerHTML;
+  const corps = corpsPdf_(label, sections);
   const fullHtml = '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>' + esc(label) + '</title>' +
     '<style>' + css +
     ' body{background:#fff;font-size:11px;margin:0;}' +
@@ -1617,7 +1800,7 @@ async function genererPdfCloture(label) {
     ' .temp-table{font-size:7px!important;width:100%!important;} .t-label{position:static!important;}' +
     ' .cb-wrap input[type=checkbox]{width:9px!important;height:9px!important;}' +
     ' *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;} @page{size:A4 landscape;margin:6mm;}' +
-    '</style></head><body>' + body +
+    '</style></head><body>' + corps +
     '\x3cscript\x3edocument.title=' + JSON.stringify(label) + ';window.onload=function(){setTimeout(function(){window.print();setTimeout(function(){window.close();},2500);},700);};\x3c/script\x3e' +
     '</body></html>';
 
@@ -1632,6 +1815,439 @@ async function genererPdfCloture(label) {
     toast('⚠️ Popup bloqué : le PDF a été téléchargé en HTML', true);
   }
   await new Promise(function (r) { setTimeout(r, 900); });
+}
+
+// PDF de la clôture : toutes les chambres froides actives, à l'instant présent.
+async function genererPdfCloture(label) {
+  const sections = sectionsLivePdf_();
+  if (!sections.length) throw new Error('Aucune chambre froide active à exporter.');
+  await ouvrirPdf_(label, sections);
+}
+
+// PDF d'un mois (re)téléchargé depuis le tableau de bord :
+// mois en cours → les cases à l'écran ; mois clôturé → l'archive du serveur.
+async function pdfMoisTableauDeBord() {
+  const mois = S.db.mois || moisActuel();
+  const enCours = (mois === moisActuel());
+  const label = labelMois(mois) + (enCours ? ' (mois en cours)' : '');
+  let sections;
+  if (enCours) sections = sectionsLivePdf_();
+  else sections = sectionsArchivePdf_(mois);
+  if (!sections.length) { toast('⚠️ Aucune donnée pour ce mois', true); return; }
+  try {
+    await ouvrirPdf_(label, sections);
+  } catch (e) {
+    toast('❌ ' + e.message, true);
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════
+//  TABLEAU DE BORD — courbes, indicateurs et historique
+// ════════════════════════════════════════════════════════════════════
+// Les données viennent de deux sources, choisies par le mois sélectionné :
+//   • le mois en cours : les cases cochées à l'écran (S.appChecks) ;
+//   • un mois clôturé  : l'archive _HISTORIQUE du serveur, qui survit à la
+//     remise à zéro de la clôture.
+const DB_COULEURS = ['#0F5E6B', '#E65100', '#7B1FA2', '#2E7D32', '#C62828', '#0277BD', '#F9A825', '#5D4037', '#00838F', '#AD1457'];
+
+// Température relevée chaque jour : la case cochée de la colonne.
+// Si plusieurs cases sont cochées le même jour, la plus élevée est retenue
+// (c'est la plus critique). null = jour sans relevé.
+function serieTemperature(cases) {
+  const serie = [];
+  for (let d = 1; d <= 31; d++) {
+    let v = null;
+    for (let i = 0; i < TEMPS_POS.length; i++) {
+      const t = TEMPS_POS[i];
+      if (cases && cases[t + '__' + d]) { if (v === null || t > v) v = t; }
+    }
+    serie.push(v);
+  }
+  return serie;
+}
+
+// Indicateurs d'une chambre froide sur un mois.
+function kpiAppareil(cases, mois) {
+  const jours = joursDansMois(mois);
+  const serie = serieTemperature(cases);
+  const valeurs = [];
+  const alertes = [];
+  for (let d = 1; d <= jours; d++) {
+    const v = serie[d - 1];
+    if (v === null) continue;
+    valeurs.push(v);
+    if (v >= 6) alertes.push({ jour: d, temp: v });
+  }
+  let somme = 0;
+  let conformes = 0;
+  valeurs.forEach(function (v) { somme += v; if (v <= 4) conformes++; });
+  return {
+    jours: jours,
+    serie: serie,
+    releves: valeurs.length,
+    couverture: jours ? Math.round(valeurs.length / jours * 100) : 0,
+    moyenne: valeurs.length ? Math.round(somme / valeurs.length * 10) / 10 : null,
+    min: valeurs.length ? Math.min.apply(null, valeurs) : null,
+    max: valeurs.length ? Math.max.apply(null, valeurs) : null,
+    conformite: valeurs.length ? Math.round(conformes / valeurs.length * 100) : 0,
+    alertes: alertes
+  };
+}
+
+// Courbe SVG : un tracé par chambre froide observée.
+function svgCourbe(series, jours) {
+  const W = 780, H = 300, mL = 42, mR = 14, mT = 14, mB = 30;
+  const pw = W - mL - mR, ph = H - mT - mB;
+  const TMAX = 9, TMIN = -1;
+  function px(d) { return mL + (jours <= 1 ? pw / 2 : (d - 1) / (jours - 1) * pw); }
+  function py(t) { return mT + (TMAX - t) / (TMAX - TMIN) * ph; }
+  const f = function (n) { return Number(n).toFixed(1); };
+  let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="db-svg" role="img">';
+  // zones de couleur, du plus critique au plus conforme
+  s += '<rect x="' + mL + '" y="' + f(py(9)) + '" width="' + pw + '" height="' + f(py(6) - py(9)) + '" fill="#FFEBEE"/>';
+  s += '<rect x="' + mL + '" y="' + f(py(6)) + '" width="' + pw + '" height="' + f(py(4) - py(6)) + '" fill="#FFF8E1"/>';
+  s += '<rect x="' + mL + '" y="' + f(py(4)) + '" width="' + pw + '" height="' + f(py(-1) - py(4)) + '" fill="#E8F5E9"/>';
+  for (let t = TMAX; t >= TMIN; t--) {
+    const seuil = (t === 6 || t === 4);
+    s += '<line x1="' + mL + '" y1="' + f(py(t)) + '" x2="' + (W - mR) + '" y2="' + f(py(t)) + '" stroke="' +
+      (t === 6 ? '#C62828' : (t === 4 ? '#2E7D32' : '#cfd8dc')) + '" stroke-width="' + (seuil ? 1.4 : 0.7) + '"' +
+      (seuil ? ' stroke-dasharray="5 4"' : '') + '/>';
+    s += '<text x="' + (mL - 6) + '" y="' + f(py(t) + 4) + '" font-size="11" fill="#607D8B" text-anchor="end">' + t + '°</text>';
+  }
+  for (let d = 1; d <= jours; d++) {
+    if (!(d === 1 || d === jours || d % 5 === 0)) continue;
+    s += '<text x="' + f(px(d)) + '" y="' + (H - 8) + '" font-size="11" fill="#607D8B" text-anchor="middle">' + d + '</text>';
+  }
+  series.forEach(function (ser) {
+    const points = ser.serie.slice(0, jours);
+    let seg = [];
+    const segments = [];
+    points.forEach(function (v, i) {
+      if (v === null || v === undefined) { if (seg.length) { segments.push(seg); seg = []; } return; }
+      seg.push(f(px(i + 1)) + ',' + f(py(v)));
+    });
+    if (seg.length) segments.push(seg);
+    segments.forEach(function (sg) {
+      if (sg.length < 2) return;
+      s += '<polyline fill="none" stroke="' + ser.couleur + '" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" points="' + sg.join(' ') + '"/>';
+    });
+    points.forEach(function (v, i) {
+      if (v === null || v === undefined) return;
+      const cx = f(px(i + 1)), cy = f(py(v));
+      s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (v >= 6 ? 4.4 : 3.2) + '" fill="' + (v >= 6 ? '#C62828' : ser.couleur) + '">' +
+        '<title>' + esc(ser.nom) + ' — ' + (i + 1) + ' : ' + v + ' °C</title></circle>';
+    });
+  });
+  s += '</svg>';
+  return s;
+}
+
+// ── Chargement de l'historique ──────────────────────────────────────
+let ARCHIVE_REQ = null;
+const MOIS_REQ = {};
+
+function chargerArchive(force) {
+  if (!force && (S.archive || S.archiveErr)) return;
+  if (!force && ARCHIVE_REQ) return;
+  ARCHIVE_REQ = api('getHistorique', {}, { attempts: 2 }).then(function (r) {
+    if (!r || r.ok === false) throw new Error((r && r.error) || 'Erreur');
+    S.archive = r.mois || [];
+    S.archiveErr = '';
+    if (force) { S.archiveMois = {}; S.dbErr = ''; }
+  }).catch(function (e) {
+    S.archiveErr = e.message || 'Erreur';
+    S.archive = null;
+  }).then(function () {
+    ARCHIVE_REQ = null;
+    if (S.tab === 'dashboard') renderTab('dashboard');
+  });
+}
+
+function chargerMoisDb(force) {
+  const mois = S.db.mois;
+  if (!mois || mois === moisActuel()) return;
+  if (!force && (mois in S.archiveMois || S.dbErr)) return;
+  if (!force && MOIS_REQ[mois]) return;
+  MOIS_REQ[mois] = api('getHistorique', { mois: mois }, { attempts: 2 }).then(function (r) {
+    if (!r || r.ok === false) throw new Error((r && r.error) || 'Erreur');
+    S.archiveMois[mois] = r.entrees || [];
+    S.dbErr = '';
+  }).catch(function (e) {
+    S.dbErr = e.message || 'Erreur';
+  }).then(function () {
+    delete MOIS_REQ[mois];
+    if (S.tab === 'dashboard') renderTab('dashboard');
+  });
+}
+
+// ── Sélection (année, mois, chambres froides) ───────────────────────
+function dbChoisirAnnee(y) {
+  S.db.annee = y;
+  S.db.mois = '';        // le mois par défaut de cette année sera choisi à l'affichage
+  renderTab('dashboard');
+}
+function dbChoisirMois(m) {
+  S.db.mois = m;
+  S.dbErr = '';
+  renderTab('dashboard');
+}
+// Clic simple dans la liste à choix multiples : on inverse la ligne cliquée.
+// Sans cela, un clic sans Ctrl remplacerait toute la sélection par une seule
+// chambre — le réflexe naturel serait de tout perdre à chaque clic.
+// Ctrl / Cmd / Maj et les touches du clavier gardent le comportement natif.
+function dbClicApps(e) {
+  const el = e && e.target;
+  if (!el || el.tagName !== 'OPTION') return;
+  if (e.ctrlKey || e.metaKey || e.shiftKey || e.button > 0) return;
+  e.preventDefault();
+  el.selected = !el.selected;
+  dbChoisirApps();
+}
+
+// Liste déroulante à choix multiples : on relit les options sélectionnées.
+function dbChoisirApps() {
+  const el = document.getElementById('db-apps');
+  if (!el) return;
+  const sel = {};
+  Array.prototype.forEach.call(el.options, function (o) { sel[o.value] = !!o.selected; });
+  S.db.sel[S.db.mois] = sel;
+  majDbZone();
+}
+function dbToutApp(valeur) {
+  const mois = S.db.mois;
+  if (!S.db.sel[mois]) S.db.sel[mois] = {};
+  Object.keys(S.db.sel[mois]).forEach(function (id) { S.db.sel[mois][id] = valeur; });
+  renderTab('dashboard');
+}
+function dbActualiser() {
+  S.archiveMois = {}; S.dbErr = ''; S.archiveErr = '';
+  chargerArchive(true);
+  try { refreshPackInBackground(); } catch (e) {}   // mois en cours à jour
+  toast('🔄 Données relues');
+}
+
+function dbCasesDe(appId, mois, entrees) {
+  if (mois === moisActuel()) return S.appChecks[appId] || {};
+  const e = (entrees || []).find(function (x) { return x.appareilId === appId; });
+  return (e && e.cases) || {};
+}
+
+function buildDashboard() {
+  const cur = moisActuel();
+  const titre = '<div class="db-card" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">'
+    + '<h3 style="margin:0">📊 Tableau de bord — températures</h3>'
+    + '<button class="btn btn-sm btn-primary" onclick="dbActualiser()">🔄 Actualiser</button></div>';
+
+  if (!S.archive) {
+    if (S.archiveErr) {
+      return titre + '<div class="db-err">⚠️ Historique illisible : ' + esc(S.archiveErr)
+        + '<div style="margin-top:10px"><button class="btn btn-sm btn-primary" onclick="dbActualiser()">Réessayer</button></div></div>';
+    }
+    return titre + '<div class="loading"><div class="spinner"></div><span>Lecture de l\'historique…</span></div>';
+  }
+
+  // ── Années et mois disponibles (archives + mois en cours) ──────────
+  const moisDispo = [];
+  S.archive.forEach(function (m) { if (moisDispo.indexOf(m.mois) < 0) moisDispo.push(m.mois); });
+  if (moisDispo.indexOf(cur) < 0) moisDispo.push(cur);
+  const annees = [];
+  moisDispo.forEach(function (m) {
+    const y = String(m).slice(0, 4);
+    if (y && annees.indexOf(y) < 0) annees.push(y);
+  });
+  annees.sort().reverse();
+  if (!annees.length) return titre + '<div class="db-err">Aucun mois à afficher.</div>';
+
+  const annee = (S.db.annee && annees.indexOf(S.db.annee) >= 0) ? S.db.annee : annees[0];
+  const moisAnnee = moisDispo.filter(function (m) { return String(m).slice(0, 4) === annee; })
+    .sort(function (a, b) { return a < b ? 1 : (a > b ? -1 : 0); });
+  const mois = (S.db.mois && moisAnnee.indexOf(S.db.mois) >= 0) ? S.db.mois : moisAnnee[0];
+  S.db.annee = annee;
+  const moisChange = (S.db.mois !== mois);
+  S.db.mois = mois;
+
+  const html = [titre];
+  const optAnnees = annees.map(function (y) {
+    return '<option value="' + esc(y) + '"' + (y === annee ? ' selected' : '') + '>' + esc(y) + '</option>';
+  }).join('');
+  const optMois = moisAnnee.map(function (m) {
+    return '<option value="' + esc(m) + '"' + (m === mois ? ' selected' : '') + '>' + esc(moisLisible(m))
+      + (m === cur ? ' — en cours' : '') + '</option>';
+  }).join('');
+  html.push('<div class="db-filters">'
+    + '<div class="db-field"><label>Année</label><select id="db-annee" onchange="dbChoisirAnnee(this.value)">' + optAnnees + '</select></div>'
+    + '<div class="db-field"><label>Mois</label><select id="db-mois" onchange="dbChoisirMois(this.value)">' + optMois + '</select></div>'
+    + '</div>');
+
+  // ── Appareils du mois sélectionné ──────────────────────────────────
+  const enCours = (mois === cur);
+  const entrees = enCours ? [] : (S.archiveMois[mois] || []);
+  if (!enCours && !(mois in S.archiveMois)) {
+    if (S.dbErr) {
+      html.push('<div class="db-err">⚠️ Mois illisible : ' + esc(S.dbErr)
+        + '<div style="margin-top:10px"><button class="btn btn-sm btn-primary" onclick="dbActualiser()">Réessayer</button></div></div>');
+      return html.join('');
+    }
+    if (moisChange || !MOIS_REQ[mois]) chargerMoisDb();
+    html.push('<div class="loading"><div class="spinner"></div><span>Lecture de ' + esc(moisLisible(mois)) + '…</span></div>');
+    return html.join('');
+  }
+
+  const dispo = enCours
+    ? S.appareils.filter(function (a) { return a.actif; }).map(function (a) { return { id: a.id, nom: a.nom }; })
+    : entrees.map(function (e) { return { id: e.appareilId, nom: e.appareilNom }; });
+  if (!dispo.length) {
+    html.push('<div class="db-err">Aucune chambre froide à afficher pour ' + esc(moisLisible(mois))
+      + (enCours ? ' : aucune n\'est active.' : ' : ce mois a été clôturé sans relevé.') + '</div>');
+    return html.join('');
+  }
+
+  const sel = S.db.sel[mois] || {};
+  S.db.sel[mois] = sel;
+  dispo.forEach(function (a) { if (sel[a.id] === undefined) sel[a.id] = true; });
+  // Mémorisés : la zone ci-dessous se recalcule sans relire l'historique.
+  S.db.dispo = dispo;
+  S.db.entrees = entrees;
+
+  // ── Sélecteur d'appareils : liste déroulante à choix multiples ─────
+  // Chaque ligne annonce les jours relevés du mois, pour choisir sans avoir
+  // à ouvrir l'onglet de chaque chambre froide.
+  html.push('<div class="db-selectwrap">'
+    + '<label for="db-apps">Chambres froides observées</label>'
+    + '<select id="db-apps" multiple size="' + Math.min(Math.max(dispo.length, 3), 8) + '"'
+    + ' onmousedown="dbClicApps(event)" onchange="dbChoisirApps()">');
+  dispo.forEach(function (a) {
+    const k = kpiAppareil(dbCasesDe(a.id, mois, entrees), mois);
+    html.push('<option value="' + esc(a.id) + '"' + (sel[a.id] ? ' selected' : '') + '>' + esc(a.nom)
+      + ' — ' + k.releves + ' jour' + (k.releves > 1 ? 's' : '') + ' relevé' + (k.releves > 1 ? 's' : '')
+      + (k.alertes.length ? ' · ' + k.alertes.length + ' alerte' + (k.alertes.length > 1 ? 's' : '') : '')
+      + '</option>');
+  });
+  html.push('</select>'
+    + '<div class="db-hint">Appuyez sur une chambre pour l\'ajouter ou la retirer de la sélection : plusieurs choix sont possibles. '
+    + 'Sur ordinateur, un simple clic suffit (<strong>Ctrl</strong> ou <strong>Cmd</strong> fonctionne aussi).</div>'
+    + '</div>');
+
+  html.push('<div class="db-actions">'
+    + '<span class="db-compteur" id="db-compteur">' + dbCompteurTexte(dispo) + '</span>'
+    + '<button class="btn btn-sm" style="background:#eceff1;color:#37474f" onclick="dbToutApp(true)">☑️ Tout observer</button>'
+    + '<button class="btn btn-sm" style="background:#eceff1;color:#37474f" onclick="dbToutApp(false)">⬜ Aucun</button>'
+    + '<button class="btn btn-sm" style="background:#7B1FA2;color:#fff" onclick="pdfMoisTableauDeBord()">📄 Retélécharger le PDF' + (enCours ? ' (en cours)' : '') + '</button>'
+    + '</div>');
+
+  html.push('<div id="db-zone">' + buildDbZone(mois, dispo, entrees) + '</div>');
+  return html.join('');
+}
+
+// Compteur « n sur m » affiché à côté des boutons de sélection.
+function dbCompteurTexte(dispo) {
+  const sel = S.db.sel[S.db.mois] || {};
+  const t = (dispo || []).length;
+  const n = (dispo || []).filter(function (a) { return sel[a.id]; }).length;
+  const pl = (t > 1 ? 's' : '');      // l'accord se fait sur le total, pas sur la sélection
+  return n + ' sur ' + t + ' chambre' + pl + ' observée' + pl;
+}
+
+// Recalcule indicateurs, courbes et tableaux SANS reconstruire la liste de
+// sélection : elle garde ainsi son défilement pendant que l'on coche
+// plusieurs chambres à la suite.
+function majDbZone() {
+  const zone = document.getElementById('db-zone');
+  if (zone) zone.innerHTML = buildDbZone(S.db.mois, S.db.dispo || [], S.db.entrees || []);
+  const compteur = document.getElementById('db-compteur');
+  if (compteur) compteur.textContent = dbCompteurTexte(S.db.dispo || []);
+}
+
+// ── Indicateurs, courbe, détail et alertes du mois affiché ──────────
+function buildDbZone(mois, dispo, entrees) {
+  const enCours = (mois === moisActuel());
+  const sel = S.db.sel[mois] || {};
+  const choisis = dispo.filter(function (a) { return sel[a.id]; });
+  const couleurDe = function (id) {
+    const i = dispo.map(function (a) { return a.id; }).indexOf(id);
+    return DB_COULEURS[(i < 0 ? 0 : i) % DB_COULEURS.length];
+  };
+  const html = [];
+  if (!choisis.length) {
+    html.push('<div class="db-card">Sélectionnez au moins une chambre froide pour afficher sa courbe.</div>');
+    return html.join('');
+  }
+
+  // ── Indicateurs ────────────────────────────────────────────────────
+  const lignes = choisis.map(function (a) {
+    return { app: a, couleur: couleurDe(a.id), kpi: kpiAppareil(dbCasesDe(a.id, mois, entrees), mois) };
+  });
+  let totReleves = 0, totJours = 0, totAlertes = 0, somme = 0, nbVal = 0, maxT = null, minT = null, sommeConf = 0;
+  lignes.forEach(function (l) {
+    totReleves += l.kpi.releves;
+    totJours += l.kpi.jours;
+    totAlertes += l.kpi.alertes.length;
+    if (l.kpi.moyenne !== null) { somme += l.kpi.moyenne * l.kpi.releves; nbVal += l.kpi.releves; }
+    if (l.kpi.max !== null) maxT = (maxT === null ? l.kpi.max : Math.max(maxT, l.kpi.max));
+    if (l.kpi.min !== null) minT = (minT === null ? l.kpi.min : Math.min(minT, l.kpi.min));
+    sommeConf += l.kpi.conformite * l.kpi.releves;
+  });
+  const couverture = totJours ? Math.round(totReleves / totJours * 100) : 0;
+  const moyenne = nbVal ? Math.round(somme / nbVal * 10) / 10 : null;
+  const conformite = nbVal ? Math.round(sommeConf / nbVal) : 0;
+  html.push('<div class="db-kpis">');
+  html.push('<div class="db-kpi"><div class="v">' + totReleves + '</div><div class="l">Jours relevés (sur ' + totJours + ' chambre-jours)</div></div>');
+  html.push('<div class="db-kpi"><div class="v">' + couverture + '%</div><div class="l">Couverture du mois</div></div>');
+  html.push('<div class="db-kpi"><div class="v">' + (moyenne === null ? '—' : moyenne + ' °C') + '</div><div class="l">Température moyenne</div></div>');
+  html.push('<div class="db-kpi"><div class="v">' + (minT === null ? '—' : minT + ' / ' + maxT + '') + '</div><div class="l">Mini / maxi (°C)</div></div>');
+  html.push('<div class="db-kpi ' + (totAlertes ? 'bad' : '') + '"><div class="v">' + totAlertes + '</div><div class="l">Jours ≥ 6 °C</div></div>');
+  html.push('<div class="db-kpi ' + (conformite >= 95 ? '' : 'warn') + '"><div class="v">' + conformite + '%</div><div class="l">Conformité ≤ 4 °C</div></div>');
+  html.push('</div>');
+
+  // ── Courbe ────────────────────────────────────────────────────────
+  html.push('<div class="db-card"><h3>📈 Courbe des températures — ' + esc(moisLisible(mois))
+    + (enCours ? ' <span style="color:var(--orange)">(mois en cours)</span>' : ' <span style="color:#90a4ae">(mois clôturé)</span>') + '</h3>');
+  html.push(svgCourbe(lignes.map(function (l) { return { nom: l.app.nom, couleur: l.couleur, serie: l.kpi.serie }; }), joursDansMois(mois)));
+  html.push('<div class="db-legende">');
+  lignes.forEach(function (l) {
+    html.push('<span><i style="background:' + l.couleur + '"></i>' + esc(l.app.nom) + '</span>');
+  });
+  html.push('</div>');
+  html.push('<div class="db-note">La courbe d\'un jour vient de la case cochée dans sa colonne (relevé du jour). '
+    + 'Un jour non contrôlé laisse un trou. Si plusieurs cases sont cochées le même jour, la température la plus élevée est retenue. '
+    + 'Zones : vert ≤ 4 °C (cible), orange 5 °C, rouge ≥ 6 °C (alerte).</div>');
+  html.push('</div>');
+
+  // ── Détail par chambre froide ─────────────────────────────────────
+  html.push('<div class="db-card"><h3>🔎 Détail par chambre froide</h3><div class="db-tablescroll"><table class="db-table">'
+    + '<thead><tr><th>Chambre froide</th><th>Relevés</th><th>Couverture</th><th>Moyenne</th><th>Mini</th><th>Maxi</th><th>Alertes ≥6 °C</th><th>Conformité ≤4 °C</th></tr></thead><tbody>');
+  lignes.forEach(function (l) {
+    const k = l.kpi;
+    html.push('<tr class="' + (k.alertes.length ? 'alerte' : '') + '">'
+      + '<td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' + l.couleur + ';margin-right:6px"></span>' + esc(l.app.nom) + '</td>'
+      + '<td class="num">' + k.releves + ' / ' + k.jours + '</td>'
+      + '<td class="num">' + k.couverture + '%</td>'
+      + '<td class="num">' + (k.moyenne === null ? '—' : k.moyenne + ' °C') + '</td>'
+      + '<td class="num">' + (k.min === null ? '—' : k.min + ' °C') + '</td>'
+      + '<td class="num">' + (k.max === null ? '—' : k.max + ' °C') + '</td>'
+      + '<td class="num">' + k.alertes.length + '</td>'
+      + '<td class="num">' + k.conformite + '%</td></tr>');
+  });
+  html.push('</tbody></table></div></div>');
+
+  // ── Jours en alerte ───────────────────────────────────────────────
+  const alertes = [];
+  lignes.forEach(function (l) {
+    l.kpi.alertes.forEach(function (a) { alertes.push({ nom: l.app.nom, jour: a.jour, temp: a.temp }); });
+  });
+  alertes.sort(function (a, b) { return a.jour - b.jour; });
+  if (alertes.length) {
+    html.push('<div class="db-card"><h3>🚨 Jours hors cible (≥ 6 °C)</h3><div class="db-tablescroll"><table class="db-table">'
+      + '<thead><tr><th>Jour</th><th>Chambre froide</th><th>Température</th></tr></thead><tbody>');
+    alertes.forEach(function (a) {
+      html.push('<tr class="alerte"><td>' + a.jour + '</td><td>' + esc(a.nom) + '</td><td>' + a.temp + ' °C</td></tr>');
+    });
+    html.push('</tbody></table></div><div class="db-note">À reporter dans le registre des anomalies (commentaire de la chambre froide).</div></div>');
+  } else {
+    html.push('<div class="db-card" style="border-left:4px solid var(--green)">✅ Aucun jour ≥ 6 °C sur la sélection et ce mois.</div>');
+  }
+
+  return html.join('');
 }
 
 // ════════════════════════════════════════════════════════════════════
