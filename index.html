@@ -133,11 +133,17 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
 ══════════════════════════════════════════════════════ */
 #app-screen{display:none;flex-direction:column;height:100%;}
 #app-screen.visible{display:flex;}
-.topbar{background:var(--teal-dark);color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,.3);flex-shrink:0;gap:8px;}
-.topbar h1{font-size:15px;font-weight:700;white-space:nowrap;}
-.topbar .sub{font-size:10px;opacity:.75;margin-top:1px;}
-#conn-status{font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.15);color:#fff;white-space:nowrap;}
-.topbar-right{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+/* Barre du haut : si les boutons de droite ne tiennent pas à côté du titre
+   (téléphone), ils passent sur une seconde ligne — jamais hors de l'écran. */
+.topbar{background:var(--teal-dark);color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,.3);flex-shrink:0;gap:8px;flex-wrap:wrap;}
+.topbar h1{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/* 220px : en dessous, le titre est trop à l'étroit — la ligne des boutons
+   passe en dessous plutôt que d'être rognée. min-width:0 : le titre accepte
+   de se réduire, sinon il pousse les boutons hors de l'écran. */
+.topbar-title{flex:1 1 220px;min-width:0;}
+.topbar .sub{font-size:10px;opacity:.75;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#conn-status{font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.15);color:#fff;white-space:nowrap;flex-shrink:0;}
+.topbar-right{display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap;flex-shrink:0;margin-left:auto;}
 .btn{border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:all .15s;padding:8px 14px;font-size:13px;min-height:var(--touch-min);display:inline-flex;align-items:center;justify-content:center;gap:4px;touch-action:manipulation;}
 .btn:active{transform:scale(.96);opacity:.85;}
 .btn-white{background:#fff;color:var(--teal-dark);}
@@ -298,6 +304,9 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
 .page-section{padding:0;}
 .page-break{page-break-after:always;}
 @media(max-width:480px){
+  .topbar{padding:8px 10px;gap:6px;}
+  /* la ligne des boutons se place sous le titre : déconnexion comprise */
+  .topbar-right{row-gap:6px;}
   .topbar h1{font-size:14px;}.btn{font-size:12px;padding:7px 10px;}
   .tab{padding:10px 10px;font-size:11px;}
   .cb-wrap input[type=checkbox]{width:24px;height:24px;}
@@ -411,7 +420,7 @@ body{font-family:'DM Sans','Segoe UI',Arial,sans-serif;background:#f0f4f8;color:
     <button class="burger-btn" onclick="toggleSidebar()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
-    <div style="flex:1">
+    <div class="topbar-title">
       <h1>🧊 TEMPRO ❄️</h1>
       <div class="sub" id="ss-name">Chargement...</div>
     </div>
